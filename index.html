@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Me · Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+  :root{
+    --navy:#223055; --navy-deep:#18264d; --pink:#ffb7ca; --slate:#b0b7c0;
+    --ink:#000; --canvas:#fff; --muted:#b0b7c0;
+    --gutter:60px; --header:120px;
+    --font:"Montserrat","Pretendard",sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--font);font-size:15px;line-height:1.428;color:var(--ink);background:var(--canvas);-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  ul{list-style:none}
+
+  /* ---------- Header ---------- */
+  .site-header{position:fixed;inset:0 0 auto 0;height:var(--header);padding:0 var(--gutter);display:flex;align-items:center;justify-content:space-between;color:#fff;z-index:10;transition:height .3s,background .3s,border-color .3s;border-bottom:1px solid transparent}
+  .site-header.is-stuck{height:88px;background:var(--navy);border-bottom-color:rgba(255,255,255,.18)}
+  .logo{font-weight:500;font-size:15px;letter-spacing:.02em;display:flex;align-items:center;gap:10px}
+  .logo-mark{width:34px;height:34px;border:1.5px solid #fff;border-radius:50%;display:grid;place-items:center;font-size:12px}
+  .gnb{display:flex;gap:4px}
+  .gnb a{font-size:15px;font-weight:500;text-transform:uppercase;padding:6px 12px;border-radius:20px;transition:background .2s}
+  .gnb a:hover{background:rgba(176,183,192,.25)}
+
+  /* ---------- Hero ---------- */
+  .hero{position:relative;background:var(--navy);min-height:840px;padding:calc(var(--header) + 40px) var(--gutter) 60px;color:#fff;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between}
+  .hero h1{font-size:100px;line-height:1;font-weight:400;text-transform:uppercase;color:var(--pink);position:relative;z-index:2}
+  .hero-eyebrow{font-size:15px;font-weight:500;text-transform:uppercase;margin-bottom:30px;position:relative;z-index:2}
+  .hero-bottom{position:relative;z-index:2;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:48px;align-items:end}
+  .hero-lead{font-size:30px;font-weight:500;line-height:1.3;max-width:760px;font-family:"Pretendard",sans-serif}
+  .hero-lead em{font-style:normal;color:var(--pink)}
+  .hero-meta{border-top:3px solid #fff;min-width:320px;background:var(--navy)}
+  .hero-meta div{display:flex;justify-content:space-between;gap:24px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.3)}
+  .hero-meta dt{font-size:12.75px;font-weight:500;text-transform:uppercase;color:var(--muted)}
+  .hero-meta dd{font-weight:500}
+  .hero-art{position:absolute;right:-40px;top:140px;width:58%;max-width:980px;z-index:1;opacity:.9}
+
+  /* ---------- Sections ---------- */
+  .band{padding:48px var(--gutter) 72px}
+  .band-pink{background:var(--pink)}
+  .band-slate{background:var(--slate)}
+  .section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:40px}
+  .section-head h2{font-size:80px;line-height:1.2;font-weight:400;text-transform:uppercase}
+  .section-head p{font-size:15px;font-weight:500;max-width:420px;text-align:right}
+
+  /* About */
+  .about-grid{display:grid;grid-template-columns:5fr 7fr;gap:60px;margin-bottom:60px}
+  .about-intro{border-top:3px solid var(--ink);padding-top:24px}
+  .about-intro h3{font-size:30px;line-height:1.2;font-weight:500;font-family:"Pretendard",sans-serif;margin-bottom:20px}
+  .about-intro p{font-family:"Pretendard",sans-serif;font-size:16px;line-height:1.75}
+  .about-intro p + p{margin-top:12px}
+  .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:0 30px}
+  .stat{border-top:3px solid var(--ink);border-bottom:1px solid var(--ink);padding:24px 0 20px;display:flex;flex-direction:column;justify-content:space-between;min-height:170px;margin-bottom:24px}
+  .stat-num{font-size:72px;line-height:1;font-weight:400}
+  .stat-num small{font-size:24px;margin-left:4px;font-family:"Pretendard",sans-serif;font-weight:500}
+  .stat-label{font-family:"Pretendard",sans-serif;font-weight:500;display:flex;justify-content:space-between;gap:12px}
+  .stat-label span:last-child{font-size:12.75px;opacity:.7;white-space:nowrap}
+
+  /* Core cards */
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:30px}
+  .card{display:flex;flex-direction:column;border-bottom:1px solid var(--ink)}
+  .card-body{border-top:3px solid var(--ink);padding:30px 24px;flex:1}
+  .card-kicker{font-size:12.75px;font-weight:500;text-transform:uppercase;margin-bottom:12px}
+  .card h3{font-family:"Pretendard",sans-serif;font-size:26px;line-height:1.3;font-weight:500;margin-bottom:16px}
+  .card p{font-family:"Pretendard",sans-serif;line-height:1.65;margin-bottom:16px}
+  .tags{display:flex;flex-wrap:wrap;gap:6px}
+  .tag{font-size:12.75px;font-weight:500;padding:4px 10px;border:1px solid var(--ink);border-radius:20px;background:rgba(255,255,255,.25)}
+  .card-foot{display:flex;justify-content:space-between;align-items:center;padding:24px}
+  .arrow{width:34px;height:34px;border:1.5px solid var(--ink);border-radius:50%;display:grid;place-items:center;font-size:15px}
+  .card-foot span:last-child{font-weight:500}
+
+  /* Experience panels */
+  .panels{display:grid;grid-template-columns:1fr 1fr;gap:60px}
+  .panel{border-top:3px solid var(--ink)}
+  .panel-title{display:flex;justify-content:space-between;align-items:baseline;padding:20px 0;border-bottom:1px solid #333}
+  .panel-title h3{font-family:"Pretendard",sans-serif;font-size:20px;font-weight:600}
+  .panel-title span{font-size:12.75px;font-weight:500;text-transform:uppercase}
+  .row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;padding:18px 0;border-bottom:1px solid rgba(0,0,0,.35);font-family:"Pretendard",sans-serif}
+  .row strong{font-weight:600;font-size:16px;display:block}
+  .row small{display:block;font-size:14px;margin-top:4px;opacity:.75}
+  .row .org{font-size:13.5px;font-weight:500;text-align:right;white-space:nowrap;padding-top:2px}
+
+  /* Footer */
+  .site-footer{background:var(--navy);color:#fff;padding:60px var(--gutter) 40px}
+  .footer-top{display:grid;grid-template-columns:1fr 1fr;gap:60px;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,.2)}
+  .footer-top h2{font-size:80px;line-height:1.2;font-weight:400;text-transform:uppercase;color:var(--pink)}
+  .footer-list div{display:grid;grid-template-columns:140px 1fr;gap:24px;padding:12px 0;font-size:13.5px}
+  .footer-list dt{font-weight:500;text-transform:uppercase;color:var(--muted)}
+  .footer-list dd{font-family:"Pretendard",sans-serif}
+  .footer-legal{padding-top:24px;font-size:12px;text-transform:uppercase;color:var(--muted)}
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:1280px){
+    .hero h1{font-size:76px}
+    .cards{grid-template-columns:repeat(2,1fr)}
+    .about-grid{grid-template-columns:1fr}
+  }
+  @media (max-width:900px){
+    :root{--gutter:24px;--header:80px}
+    .gnb{display:none}
+    .hero{min-height:auto}
+    .hero h1{font-size:52px}
+    .hero-bottom{grid-template-columns:1fr;margin-top:180px}
+    .hero-lead{font-size:22px}
+    .hero-meta{min-width:0}
+    .hero-art{width:110%;top:auto;bottom:240px;right:-30%;opacity:.35}
+    .section-head{flex-direction:column;align-items:flex-start}
+    .section-head h2,.footer-top h2{font-size:48px}
+    .section-head p{text-align:left}
+    .panels,.footer-top{grid-template-columns:1fr;gap:40px}
+  }
+  @media (max-width:600px){
+    :root{--gutter:16px}
+    .hero h1{font-size:40px}
+    .cards,.stats{grid-template-columns:1fr}
+    .stat{min-height:auto;gap:16px}
+    .stat-num{font-size:56px}
+    .row{grid-template-columns:1fr;gap:6px}
+    .row .org{text-align:left}
+    .footer-list div{grid-template-columns:1fr;gap:4px}
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header" id="header">
+  <a href="#top" class="logo"><span class="logo-mark">AI</span>PORTFOLIO</a>
+  <nav class="gnb">
+    <a href="#about">About</a>
+    <a href="#core">Core</a>
+    <a href="#experience">Experience</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="top">
+  <div>
+    <p class="hero-eyebrow">About Me — AI Educator &amp; R&amp;D</p>
+    <h1>Teach AI<br>Connect<br>The Future</h1>
+  </div>
+
+  <!-- 건물 파사드를 대신하는 직선 패턴 일러스트 -->
+  <svg class="hero-art" viewBox="0 0 900 640" fill="none" aria-hidden="true">
+    <g stroke="#b0b7c0" stroke-width="1.5">
+      <rect x="120" y="60" width="700" height="600"/>
+      <path d="M120 140H820M120 220H820M120 300H820M120 380H820M120 460H820M120 540H820"/>
+      <path d="M220 60V660M320 60V660M420 60V660M520 60V660M620 60V660M720 60V660"/>
+    </g>
+    <g fill="#b0b7c0" opacity=".35">
+      <rect x="420" y="140" width="100" height="80"/><rect x="620" y="220" width="100" height="80"/>
+      <rect x="220" y="300" width="100" height="80"/><rect x="520" y="380" width="100" height="80"/>
+      <rect x="320" y="460" width="100" height="80"/><rect x="720" y="460" width="100" height="80"/>
+    </g>
+    <g fill="#ffb7ca"><rect x="520" y="140" width="100" height="80"/></g>
+    <text x="140" y="110" fill="#b0b7c0" font-family="Montserrat" font-size="22" letter-spacing="4">SMART HRD · R&amp;D</text>
+  </svg>
+
+  <div class="hero-bottom">
+    <p class="hero-lead">AI 기술을 <em>현장의 언어</em>로 가르치고,<br>학습자의 프로젝트를 <em>공모전 성과</em>로 연결하는<br>AI 교육 전문가입니다.</p>
+    <dl class="hero-meta">
+      <div><dt>Company</dt><dd>스마트인재개발원</dd></div>
+      <div><dt>Team</dt><dd>연구개발팀</dd></div>
+      <div><dt>Period</dt><dd>2024.12.04 — 현재</dd></div>
+    </dl>
+  </div>
+</section>
+
+<!-- ===== ABOUT ===== -->
+<section class="band band-pink" id="about">
+  <div class="section-head">
+    <h2>About</h2>
+    <p>강의 · 공모전 연계 · 과정 기획까지,<br>교육의 처음과 끝을 함께 설계합니다.</p>
+  </div>
+
+  <div class="about-grid">
+    <div class="about-intro">
+      <h3>가르치는 사람이자,<br>성장을 설계하는 사람</h3>
+      <p>스마트인재개발원 연구개발팀에서 K-Digital Training, 디지털 선도기업 아카데미, 광주인공지능사관학교 등 국가 AI 인재양성 과정의 주강사로 Python부터 LLM·AI Agent까지 AI 전 영역을 강의하고 있습니다.</p>
+      <p>강의실 밖에서는 교육생 프로젝트를 외부 공모전과 연결하고 멘토를 매칭하며, 내부 공모전을 직접 기획·운영합니다. 신규 과정 커리큘럼 설계와 정부 훈련사업 계획서 작성까지 참여하며 교육 운영 전반을 경험하고 있습니다.</p>
+    </div>
+
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-num">91<small>팀</small></div>
+        <div class="stat-label"><span>공모전 프로젝트 연계</span><span>2025</span></div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">6<small>팀</small></div>
+        <div class="stat-label"><span>외부 공모전 수상</span><span>2025</span></div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">3<small>팀</small></div>
+        <div class="stat-label"><span>제7회 KDT 해커톤 장려상</span><span>KDT</span></div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">7<small>팀</small></div>
+        <div class="stat-label"><span>내부 AI 아이디어 공모전 수상</span><span>2026</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CORE ===== -->
+<section class="band band-pink" id="core" style="padding-top:0">
+  <div class="section-head">
+    <h2>Core</h2>
+    <p>담당 업무를 네 가지 핵심 역량으로 정리했습니다.</p>
+  </div>
+
+  <div class="cards">
+    <article class="card">
+      <div class="card-body">
+        <p class="card-kicker">01 — Teaching</p>
+        <h3>AI 전 영역 주강사</h3>
+        <p>K-Digital Training, KDT 디지털 선도기업 아카데미, 산업구조변화대응 특화훈련, 광주인공지능사관학교, 채용연계형 SW전문인재양성사업 주강사</p>
+        <div class="tags">
+          <span class="tag">Python</span><span class="tag">NumPy</span><span class="tag">Pandas</span><span class="tag">Matplotlib</span>
+          <span class="tag">ML</span><span class="tag">DL</span><span class="tag">HuggingFace</span><span class="tag">OpenCV</span>
+          <span class="tag">LLM</span><span class="tag">Local LLM</span><span class="tag">AI Agent</span><span class="tag">텍스트마이닝</span><span class="tag">AI서비스기획</span>
+        </div>
+      </div>
+      <div class="card-foot"><span class="arrow">→</span><span>5개 국가사업</span></div>
+    </article>
+
+    <article class="card">
+      <div class="card-body">
+        <p class="card-kicker">02 — Competition</p>
+        <h3>공모전 발굴 · 연계 · 운영</h3>
+        <p>신규 공모전 발굴과 프로젝트 연계, 멘토 컨택·매칭, 기관 공모전 홍보 플랫폼 개발, 내부 공모전 기획·운영</p>
+        <div class="tags">
+          <span class="tag">Flow_Watch</span><span class="tag">네버랜드</span><span class="tag">문제Issue!</span>
+          <span class="tag">데이터로 미래를 그리는 AI 아이디어 공모전</span>
+        </div>
+      </div>
+      <div class="card-foot"><span class="arrow">→</span><span>91팀 연계</span></div>
+    </article>
+
+    <article class="card">
+      <div class="card-body">
+        <p class="card-kicker">03 — Planning</p>
+        <h3>과정 설계 · 사업계획</h3>
+        <p>신규 개강과정 커리큘럼 설계, 2025 KDT 훈련운영계획서(4개 과정) 및 2026 특화훈련 사업계획서 작성 보조</p>
+        <div class="tags">
+          <span class="tag">커리큘럼 설계</span><span class="tag">훈련운영계획서</span><span class="tag">교수학습계획서 작성도구 개발</span>
+        </div>
+      </div>
+      <div class="card-foot"><span class="arrow">→</span><span>2025 — 2026</span></div>
+    </article>
+
+    <article class="card">
+      <div class="card-body">
+        <p class="card-kicker">04 — Infra</p>
+        <h3>교육 인프라 지원</h3>
+        <p>교육생이 실습과 프로젝트에 집중할 수 있도록 개발 환경과 계정을 관리·지원</p>
+        <div class="tags">
+          <span class="tag">교육용 GitHub 계정 관리</span><span class="tag">유료 SW 지원</span><span class="tag">클라우드 계정 발급</span>
+        </div>
+      </div>
+      <div class="card-foot"><span class="arrow">→</span><span>Ops</span></div>
+    </article>
+  </div>
+</section>
+
+<!-- ===== EXPERIENCE ===== -->
+<section class="band band-slate" id="experience">
+  <div class="section-head">
+    <h2>Experience</h2>
+    <p>과정 운영 · 대외 교육 · 기획 활동</p>
+  </div>
+
+  <div class="panels">
+    <div class="panel">
+      <div class="panel-title"><h3>과정 운영 · 대외 교육</h3><span>Education</span></div>
+      <ul>
+        <li class="row"><div><strong>채용연계형 SW전문인재양성사업 언어지능 과정 운영</strong></div><span class="org">스마트인재개발원</span></li>
+        <li class="row"><div><strong>KDT 디지털 선도기업 AI 휴먼 과정 운영</strong><small>이스트소프트 공인강사</small></div><span class="org">이스트소프트</span></li>
+        <li class="row"><div><strong>MX School 과정 운영</strong></div><span class="org">동아일보</span></li>
+        <li class="row"><div><strong>재직자 대상 생성형 AI 활용 교육</strong><small>광주광역시 동구청 · 광주광역시 교통공사</small></div><span class="org">공공기관</span></li>
+        <li class="row"><div><strong>「지금은 에이전트 시대」 온라인 콘텐츠 촬영</strong><small>총 22차시 · 과정 개강 전 제작</small></div><span class="org">KDC</span></li>
+        <li class="row"><div><strong>오리엔테이션 토크콘서트 AI 피지컬 전문가 패널</strong></div><span class="org">광주인공지능사관학교</span></li>
+      </ul>
+    </div>
+
+    <div class="panel">
+      <div class="panel-title"><h3>기획 · 사업 지원</h3><span>Planning</span></div>
+      <ul>
+        <li class="row"><div><strong>2026 데이터로 미래를 그리는 AI 아이디어 공모전</strong><small>내부 공모전 기획·운영 · 내부 6팀, 외부 1팀 수상</small></div><span class="org">2026</span></li>
+        <li class="row"><div><strong>산업구조변화대응 특화훈련 사업계획서 작성 보조</strong><small>교수학습 계획서 작성도구 개발</small></div><span class="org">2026</span></li>
+        <li class="row"><div><strong>K-Digital Training 사업계획서 작성 보조</strong><small>훈련운영계획서 작성 보조 · 총 4개 과정</small></div><span class="org">2025</span></li>
+        <li class="row"><div><strong>공모전 프로젝트 연계 및 멘토 매칭</strong><small>총 91팀 연계, 6팀 수상</small></div><span class="org">2025</span></li>
+        <li class="row"><div><strong>제7회 KDT 해커톤 장려상 3팀 배출</strong><small>Flow_Watch · 네버랜드 · 문제Issue!</small></div><span class="org">KDT</span></li>
+        <li class="row"><div><strong>기관 공모전 홍보 플랫폼 개발 · 신규 커리큘럼 설계</strong></div><span class="org">상시</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="site-footer" id="contact">
+  <div class="footer-top">
+    <h2>Let's<br>Connect</h2>
+    <dl class="footer-list">
+      <div><dt>Name</dt><dd>[이름]</dd></div>
+      <div><dt>Email</dt><dd>[이메일 주소]</dd></div>
+      <div><dt>GitHub</dt><dd>[GitHub URL]</dd></div>
+      <div><dt>Company</dt><dd>스마트인재개발원 연구개발팀</dd></div>
+    </dl>
+  </div>
+  <p class="footer-legal">© 2026 Portfolio. All rights reserved.</p>
+</footer>
+
+<script>
+  const header = document.getElementById('header');
+  const onScroll = () => header.classList.toggle('is-stuck', window.scrollY > 40);
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+</script>
+</body>
+</html>
